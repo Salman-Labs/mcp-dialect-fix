@@ -1,7 +1,7 @@
 {
   "name": "mcp-dialect-fix",
-  "version": "0.1.0",
-  "description": "Rewrite MCP tool schemas from JSON Schema draft-07 to 2020-12 so strict clients stop rejecting them.",
+  "version": "0.1.1",
+  "description": "Fix Claude Desktop's 'unsupported dialect' tool errors by rewriting MCP tool schemas from JSON Schema draft-07 to 2020-12.",
   "type": "module",
   "license": "MIT",
   "author": "Salman Khan",

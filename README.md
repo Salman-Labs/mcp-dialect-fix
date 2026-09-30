@@ -1,8 +1,8 @@
 # mcp-dialect-fix
 
-Stop **JSON Schema declares an unsupported dialect** from rejecting every tool an MCP server exposes.
+Stop **JSON Schema declares an unsupported dialect** from failing every tool call in Claude Desktop and Cowork.
 
-MCP servers built on `@modelcontextprotocol/sdk` v1 advertise each tool's `inputSchema` and `outputSchema` as JSON Schema draft-07. Claude Desktop, Cowork, and the v2 MCP client accept JSON Schema 2020-12 only, so `tools/list` fails for the whole server. Deleting `$schema` is not enough: a zod tuple is still `items: [...]` plus `additionalItems: false`, and strict Ajv 2020 rejects that with `items must be object,boolean`.
+MCP servers built on `@modelcontextprotocol/sdk` v1 advertise each tool's `inputSchema` and `outputSchema` as JSON Schema draft-07. Claude Desktop and Cowork validate JSON Schema 2020-12 only: the tool list loads, and every tool call then fails with "JSON Schema declares an unsupported dialect". Deleting `$schema` is not enough: a zod tuple is still `items: [...]` plus `additionalItems: false`, and strict Ajv 2020 rejects that with `items must be object,boolean`. Clients on MCP TypeScript SDK >= 2.0.0 accept draft-07 ([typescript-sdk#2534](https://github.com/modelcontextprotocol/typescript-sdk/pull/2534)), so this package is for Claude Desktop and Cowork (and other strict 2020-12-only validators) running servers you can't easily upgrade.
 
 `mcp-dialect-fix` rewrites those schemas to 2020-12. It is a stdio proxy, a `check` command for CI, and two library functions.
 
@@ -122,7 +122,7 @@ External `$ref`s, including ones whose fragment contains `/definitions/`, are no
 
 ## Why
 
-`@modelcontextprotocol/sdk` v1 (1.31.0) still emits draft-07 from zod, including tuple `items` arrays. Clients that only implement 2020-12 then reject the server:
+`@modelcontextprotocol/sdk` v1 (1.31.0) still emits draft-07 from zod, including tuple `items` arrays. Claude Desktop and Cowork then fail each tool call:
 
 - [anthropics/claude-code#88882](https://github.com/anthropics/claude-code/issues/88882) — server-filesystem unusable in Claude Desktop since 2025.11.25
 - [anthropics/claude-code#94351](https://github.com/anthropics/claude-code/issues/94351) — first-party Filesystem extension rejected
