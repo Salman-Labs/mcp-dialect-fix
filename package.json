@@ -1,0 +1,69 @@
+{
+  "name": "mcp-dialect-fix",
+  "version": "0.1.0",
+  "description": "Rewrite MCP tool schemas from JSON Schema draft-07 to 2020-12 so strict clients stop rejecting them.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Salman Khan",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "mcp-dialect-fix": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Salman-Labs/mcp-dialect-fix.git"
+  },
+  "homepage": "https://github.com/Salman-Labs/mcp-dialect-fix#readme",
+  "bugs": {
+    "url": "https://github.com/Salman-Labs/mcp-dialect-fix/issues"
+  },
+  "keywords": [
+    "mcp",
+    "modelcontextprotocol",
+    "json-schema",
+    "json-schema-2020-12",
+    "draft-07",
+    "claude",
+    "stdio"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1"
+  },
+  "peerDependencies": {
+    "@modelcontextprotocol/sdk": ">=1.10.0 <2"
+  },
+  "peerDependenciesMeta": {
+    "@modelcontextprotocol/sdk": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "1.31.0",
+    "@types/node": "^22.15.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4",
+    "zod": "^4.0.0"
+  },
+  "sideEffects": false
+}
