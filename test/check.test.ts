@@ -69,10 +69,10 @@ describe("check", () => {
   it("prints help and version", async () => {
     const help = await runCli(["--help"]);
     expect(help.code).toBe(0);
-    expect(help.stdout).toContain("mcp-dialect-fix 0.1.0");
+    expect(help.stdout).toContain("mcp-dialect-fix 0.1.1");
     expect(help.stdout).toContain("mcp-dialect-fix check --");
     const version = await runCli(["--version"]);
-    expect(version.stdout).toBe("0.1.0\n");
+    expect(version.stdout).toBe("0.1.1\n");
     expect(version.code).toBe(0);
     const missing = await runCli(["check"]);
     expect(missing.code).toBe(2);
